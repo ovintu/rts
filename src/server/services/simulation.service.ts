@@ -7,17 +7,17 @@ export function simulationService(app: express.Application) {
     /**
      * Start simulation.
      */
-    app.get('/api/startSimulation',
+    app.get('/api/simulation/start',
         (req:any, res:any, next:any) => {
-            res.sendStatus(200);
+            res.sendStatus(204);
         });
 
     /**
      * Stop simulation.
      */
-    app.get('/api/stopSimulation',
+    app.get('/api/simulation/stop',
         (req:any, res:any, next:any) => {
-            res.sendStatus(200);
+            res.sendStatus(204);
         });
 }
 

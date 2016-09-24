@@ -24,10 +24,20 @@ export class SimulationService {
 
     /**
      * Returns an Observable for the HTTP GET request for the JSON resource.
-     * @return {string[]} The Observable for the HTTP request.
+     * @return {"success" or "fail"} The Observable for the HTTP request.
      */
-    get(): Observable<string[]> {
-        return this.http.get(`${Config.API}/api/name-list/static`)
+    start(): Observable<string> {
+        return this.http.get(`${Config.API}/api/simulation/start`)
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * Returns an Observable for the HTTP GET request for the JSON resource.
+     * @return {"success" or "fail"} The Observable for the HTTP request.
+     */
+    stop(): Observable<string> {
+        return this.http.get(`${Config.API}/api/simulation/stop`)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

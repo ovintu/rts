@@ -1,9 +1,7 @@
-/**
- * Created by Everest on 9/23/2016.
- */
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {Ng2Highcharts, Ng2Highmaps, Ng2Highstocks} from 'ng2-highcharts';
+import { SimulationService } from '../shared/index';
 
 /**
  * This class represents the lazy loaded SimulationComponent.
@@ -14,7 +12,9 @@ import {Ng2Highcharts, Ng2Highmaps, Ng2Highstocks} from 'ng2-highcharts';
     templateUrl: 'simulation.component.html',
     styleUrls: ['simulation.component.css']
 })
+
 export class SimulationComponent implements OnInit {
+    
     chartOptions = {
         chart: {
             type: 'line'
