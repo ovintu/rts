@@ -14,7 +14,16 @@ import { SimulationService } from '../shared/index';
 })
 
 export class SimulationComponent implements OnInit {
-    
+
+  /**
+   * Creates an instance of the SimulationComponent with the injected
+   * SimulationService.
+   *
+   * @param {Http} http - The injected Http.
+   * @param {SimulationService} simulationService - The injected SimulationService.
+   */
+    constructor(private http: Http, public simulationService: SimulationService) { }
+
     chartOptions = {
         chart: {
             type: 'line'
@@ -135,8 +144,6 @@ export class SimulationComponent implements OnInit {
         }
     ];
     chartStock = {};
-
-    constructor(private http: Http) { }
 
     ngOnInit(): any {
         setInterval(() => {

@@ -5,8 +5,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksComponent } from './tasks.component';
 
+import {AgGridModule} from 'ag-grid-ng2/main';
+
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, AgGridModule],
     declarations: [TasksComponent],
     exports: [TasksComponent]
 })

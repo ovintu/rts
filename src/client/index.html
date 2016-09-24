@@ -7,8 +7,27 @@
   <title><%= APP_TITLE %></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="../../../node_modules/systemjs/dist/system.src.js"></script>
+  <script src="../../../node_modules/socket.io-client/socket.io.js"></script>
+
+  <!--ag-grid-->
+    <script src="../../../node_modules/ag-grid/dist/ag-grid.js"></script>
   <!-- inject:css -->
+    <link href="../../../node_modules/ag-grid/dist/styles/ag-grid.css" rel="stylesheet" />
+    <link href="../../../node_modules/ag-grid/dist/styles/theme-fresh.css" rel="stylesheet" />
   <!-- endinject -->
+
+  <script>
+        System.config({
+            packages: {'app': {defaultExtension: 'js'}}
+        });
+        System.import("angular2/angular2").then(function(ng2) {
+            ag.grid.initialiseAgGridWithAngular2(ng2);
+        });
+        System.import('app/bootstrap')
+                .catch(console.log.bind(console));
+    </script>
 </head>
 <body>
 
