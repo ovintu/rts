@@ -31,9 +31,9 @@ build/Release
 .typingsrc
 
 #IDE configuration files
-.idea
-.vscode
-*.iml
+#.idea
+#.vscode
+#*.iml
 
 /tools/**/*.js
 dist
