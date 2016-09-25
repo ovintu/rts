@@ -24,6 +24,22 @@ export class SimulationComponent implements OnInit {
    */
     constructor(private http: Http, public simulationService: SimulationService) { }
 
+    start(){
+        this.simulationService.start()
+            .subscribe(
+                names => console.log(names),
+                error => console.log(error)
+            );
+    }
+
+    stop(){
+         this.simulationService.stop()
+            .subscribe(
+                names => console.log(names),
+                error => console.log(error)
+            );
+    }
+
     chartOptions = {
         chart: {
             type: 'line'

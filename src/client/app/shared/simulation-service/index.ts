@@ -4,4 +4,4 @@
 /**
  * This barrel file provides the export for the shared SimulationService.
  */
-export * from './simulation.service';
+export * from './simulation-service.service';

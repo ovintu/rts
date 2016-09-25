@@ -4,6 +4,10 @@
 
 <table width="100%">
     <tr>
+        <td><button (click)="start()">Start</button></td>
+        <td><button (click)="stop()">Stop</button></td>
+    </tr>
+    <tr>
         <td width="50%">
             <div [ng2-highcharts]="chartOptions" class="graph"></div>
         </td>

@@ -23,23 +23,30 @@ export class SimulationService {
     constructor(private http: Http) {}
 
     /**
+     * Initialize OnInit
+     */
+    ngOnInit() {
+    }
+
+
+    /**
      * Returns an Observable for the HTTP GET request for the JSON resource.
      * @return {"success" or "fail"} The Observable for the HTTP request.
      */
-    start(): Observable<string> {
-        return this.http.get(`${Config.API}/api/simulation/start`)
-            .map((res: Response) => res.json())
-            .catch(this.handleError);
+    start(): Observable<string[]> {
+        return this.http.get(`${Config.API}/api/simulation-service/start`)
+                   .map((res: Response) => res.json())
+                   .catch(this.handleError);
     }
 
     /**
      * Returns an Observable for the HTTP GET request for the JSON resource.
      * @return {"success" or "fail"} The Observable for the HTTP request.
      */
-    stop(): Observable<string> {
-        return this.http.get(`${Config.API}/api/simulation/stop`)
-            .map((res: Response) => res.json())
-            .catch(this.handleError);
+    stop(): Observable<string[]> {
+        return this.http.get(`${Config.API}/api/simulation-service/stop`)
+                   .map((res: Response) => res.json())
+                   .catch(this.handleError);
     }
 
     /**
