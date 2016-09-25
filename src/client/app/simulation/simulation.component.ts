@@ -3,6 +3,8 @@ import {Http} from '@angular/http';
 import {Ng2Highcharts, Ng2Highmaps, Ng2Highstocks} from 'ng2-highcharts';
 import { SimulationService } from '../shared/index';
 
+declare var io: any;
+
 /**
  * This class represents the lazy loaded SimulationComponent.
  */
@@ -14,6 +16,8 @@ import { SimulationService } from '../shared/index';
 })
 
 export class SimulationComponent implements OnInit {
+
+    socket: any;
 
   /**
    * Creates an instance of the SimulationComponent with the injected
@@ -27,9 +31,11 @@ export class SimulationComponent implements OnInit {
     start(){
         this.simulationService.start()
             .subscribe(
-                names => console.log(names),
-                error => console.log(error)
-            );
+                error => console.log(error),
+                ()=> {
+                    console.log("****Simulation started: receiving");
+                    this.receiveData();
+                });
     }
 
     stop(){
@@ -38,6 +44,12 @@ export class SimulationComponent implements OnInit {
                 names => console.log(names),
                 error => console.log(error)
             );
+    }
+
+    receiveData(){
+        this.socket.on('Task data',function(msg: any){
+            console.log(msg);
+        });
     }
 
     chartOptions = {
@@ -162,6 +174,7 @@ export class SimulationComponent implements OnInit {
     chartStock = {};
 
     ngOnInit(): any {
+        this.socket = io();
         setInterval(() => {
             this.chartOptions = {
                 chart: {

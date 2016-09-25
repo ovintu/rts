@@ -2,6 +2,7 @@
  * Created by Everest on 9/24/2016.
  */
 import * as express from 'express';
+import {Simulation} from "./simulation";
 
 export function simulationService(app: express.Application) {
 
@@ -10,7 +11,8 @@ export function simulationService(app: express.Application) {
      */
     app.get('/api/simulation-service/start',
         (req:any, res:any, next:any) => {
-
+            var simulation = new Simulation();
+            simulation.start(__dirname + '/inputTasks.json');
             console.log("****Server Simulation Start");
             res.sendStatus(204);
         });

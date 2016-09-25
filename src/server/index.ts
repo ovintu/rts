@@ -7,6 +7,8 @@ import * as routes from './routes';
 
 import { Init } from './db/redis';
 
+var rtsIo = require("./services/io");
+
 var _clientDir = '../client';
 var app = express();
 
@@ -16,6 +18,16 @@ export function init(port: number, mode: string) {
   app.use(bodyParser.json());
   app.use(bodyParser.text());
   app.use(compression());
+
+  var http = require('http').Server(app);
+  var io = require('socket.io')(http);
+  rtsIo.io = io;
+  rtsIo.io.on('connection', function(socket: any){
+      console.log('a user connected');
+      socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+  });
 
   // DB Init
   Init();
