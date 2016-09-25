@@ -26,7 +26,8 @@ export class SimulationComponent implements OnInit {
    * @param {Http} http - The injected Http.
    * @param {SimulationService} simulationService - The injected SimulationService.
    */
-    constructor(private http: Http, public simulationService: SimulationService) { }
+    constructor(private http: Http, public simulationService: SimulationService) {
+     }
 
     start(){
         this.simulationService.start()
@@ -47,6 +48,7 @@ export class SimulationComponent implements OnInit {
     }
 
     receiveData(){
+        console.log("***waiting on the client side");
         this.socket.on('Task data',function(msg: any){
             console.log(msg);
         });
@@ -175,6 +177,10 @@ export class SimulationComponent implements OnInit {
 
     ngOnInit(): any {
         this.socket = io();
+        this.init();
+    }
+
+    init(){
         setInterval(() => {
             this.chartOptions = {
                 chart: {

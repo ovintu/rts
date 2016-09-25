@@ -4,30 +4,29 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
-
 import { Init } from './db/redis';
 
 var rtsIo = require("./services/io");
-
 var _clientDir = '../client';
 var app = express();
+var httpServer = require('http').Server(app);
+var io = require('socket.io')(httpServer);
+rtsIo.io = io;
 
 export function init(port: number, mode: string) {
+
+  console.log('waiting for users');
+  rtsIo.io.on('connection', (socket: any) => {
+      console.log('a user connected');
+      socket.on('disconnect', () => {
+        console.log('user disconnected');
+      });
+  });
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(bodyParser.text());
   app.use(compression());
-
-  var http = require('http').Server(app);
-  var io = require('socket.io')(http);
-  rtsIo.io = io;
-  rtsIo.io.on('connection', function(socket: any){
-      console.log('a user connected');
-      socket.on('disconnect', function(){
-        console.log('user disconnected');
-      });
-  });
 
   // DB Init
   Init();

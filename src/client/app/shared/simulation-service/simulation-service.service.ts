@@ -35,7 +35,7 @@ export class SimulationService {
      */
     start(): Observable<string[]> {
         return this.http.get(`${Config.API}/api/simulation-service/start`)
-                   .map((res: Response) => res.json())
+                   .map((res: Response) => res)
                    .catch(this.handleError);
     }
 
@@ -45,7 +45,7 @@ export class SimulationService {
      */
     stop(): Observable<string[]> {
         return this.http.get(`${Config.API}/api/simulation-service/stop`)
-                   .map((res: Response) => res.json())
+                   .map((res: Response) => res)
                    .catch(this.handleError);
     }
 
@@ -58,6 +58,7 @@ export class SimulationService {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        alert(errMsg);
         return Observable.throw(errMsg);
     }
 }
