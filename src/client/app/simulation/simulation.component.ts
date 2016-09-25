@@ -27,24 +27,35 @@ export class SimulationComponent implements OnInit {
    * @param {SimulationService} simulationService - The injected SimulationService.
    */
     constructor(private http: Http, public simulationService: SimulationService) {
+        this.socket = io();
      }
 
     start(){
         this.simulationService.start()
             .subscribe(
-                error => console.log(error),
-                ()=> {
-                    console.log("****Simulation started: receiving");
-                    this.receiveData();
-                });
+                res => {
+                    let status = Number(res["status"]);
+                    if (status == 201) {
+                        console.log("****Simulation started: receiving");
+                        this.receiveData();
+                    } else{
+                         console.log("Http Error: " + status);
+                    }
+                },
+                err => console.log(err));
     }
 
     stop(){
          this.simulationService.stop()
             .subscribe(
-                names => console.log(names),
-                error => console.log(error)
-            );
+                res => {
+                    let status = Number(res["status"]);
+                    if (status == 201) {
+                        console.log("****Simulation stoped");
+                    } else{
+                        console.log("Http Error: " + status);
+                    }
+                });
     }
 
     receiveData(){

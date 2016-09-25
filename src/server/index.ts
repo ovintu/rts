@@ -5,23 +5,12 @@ import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
 import { Init } from './db/redis';
+import rtsIo = require("./services/io");
 
-var rtsIo = require("./services/io");
 var _clientDir = '../client';
 var app = express();
-var httpServer = require('http').Server(app);
-var io = require('socket.io')(httpServer);
-rtsIo.io = io;
 
 export function init(port: number, mode: string) {
-
-  console.log('waiting for users');
-  rtsIo.io.on('connection', (socket: any) => {
-      console.log('a user connected');
-      socket.on('disconnect', () => {
-        console.log('user disconnected');
-      });
-  });
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
@@ -99,5 +88,17 @@ export function init(port: number, mode: string) {
       console.log('App is listening on port:' + port);
       resolve(server);
     });
+
+    var io = server;
+    rtsIo.io = io;
+    rtsIo.io.on('connection', (socket: any) => {
+      console.log('a user connected');
+      socket.on('disconnect', () => {
+        console.log('user disconnected');
+      });
+    });
+
+    console.log('waiting for users');
   });
 };
+

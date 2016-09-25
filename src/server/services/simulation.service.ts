@@ -14,7 +14,7 @@ export function simulationService(app: express.Application) {
             var simulation = new Simulation();
             simulation.start(__dirname + '/inputTasks.json');
             console.log("****Server Simulation Start");
-            res.sendStatus(204);
+            res.sendStatus(201);
         });
 
     /**
@@ -24,7 +24,7 @@ export function simulationService(app: express.Application) {
         (req:any, res:any, next:any) => {
 
             console.log("****Server Simulation Stop");
-            res.sendStatus(204);
+            res.sendStatus(201);
         });
 }
 
