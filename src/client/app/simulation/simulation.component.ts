@@ -70,16 +70,8 @@ export class SimulationComponent implements OnInit {
                     var series1 = this.series[0];
                     setInterval(function () {
                         var x = (new Date()).getTime(), // current time
-                            y = Math.round(Math.random() * 100);
+                            y = 200;
                         series1.addPoint([x, y], true, true);
-                    }, 1000);
-
-                    // set up the updating of the chart each second
-                    var series2 = this.series[1];
-                    setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.round(Math.random() * 100);
-                        series2.addPoint([x, y], true, true);
                     }, 1000);
                 }
             }
@@ -88,14 +80,17 @@ export class SimulationComponent implements OnInit {
             name: 'Task1',
             data: (function () {
                 // generate an array of random data
-                var data = [],
-                    time = (new Date()).getTime(),
-                    i;
+                var data :any[];
+                var time :any;
+                var i: any;
+                data = [],
+                time = (new Date()).getTime(),
+                i;
 
                 for (i = -999; i <= 0; i += 1) {
                     data.push([
                         time + i * 1000,
-                        Math.round(Math.random() * 100)
+                        200
                     ]);
                 }
                 return data;
@@ -124,12 +119,15 @@ export class SimulationComponent implements OnInit {
                     }
                 },
                 series: [{
-                    name: 'Random data',
+                    name: 'Task1',
                     data: (function () {
                         // generate an array of random data
-                        var data = [],
-                            time = (new Date()).getTime(),
-                            i;
+                        var data :any[];
+                        var time :any;
+                        var i: any;
+                        data = [],
+                        time = (new Date()).getTime(),
+                        i;
 
                         for (i = -999; i <= 0; i += 1) {
                             data.push([
