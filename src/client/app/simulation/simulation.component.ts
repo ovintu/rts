@@ -62,6 +62,9 @@ export class SimulationComponent implements OnInit {
     }
 
     chartOptions = {
+        title:{
+            text: 'Rts'
+        },
         chart: {
             events: {
                 load: function () {
@@ -104,6 +107,9 @@ export class SimulationComponent implements OnInit {
 
     init(){
         this.chartOptions = {
+                title:{
+                    text: 'Rts'
+                },
                 chart: {
                     events: {
                         load: function () {
