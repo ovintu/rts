@@ -63,35 +63,44 @@ export class SimulationComponent implements OnInit {
 
     chartOptions = {
         chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Rts',
-            style: {
-                color: '#CCC'
+            events: {
+                load: function () {
+
+                    // set up the updating of the chart each second
+                    var series1 = this.series[0];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.round(Math.random() * 100);
+                        series1.addPoint([x, y], true, true);
+                    }, 1000);
+
+                    // set up the updating of the chart each second
+                    var series2 = this.series[1];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.round(Math.random() * 100);
+                        series2.addPoint([x, y], true, true);
+                    }, 1000);
+                }
             }
-        },
-        yAxis: {
-            title: {
-                text: 'Period'
-            }
-        },
-        xAxis: {
-            categories: ['test']
         },
         series: [{
-                    name: 'Task1',
-                    data: ['0']
-                }, {
-                    name: 'Task2',
-                    data: ['0']
-                }, {
-                    name: 'Task3',
-                    data: ['0']
-                }, {
-                    name: 'Task4',
-                    data: ['0']
-                }]
+            name: 'Task1',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+
+                for (i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        }]
     };
 
     ngOnInit(): any {
@@ -99,40 +108,39 @@ export class SimulationComponent implements OnInit {
     }
 
     init(){
-        setInterval(() => {
-            this.chartOptions = {
+        this.chartOptions = {
                 chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: 'Rts',
-                    style: {
-                        color: '#CCC'
-                    }
-                },
-                xAxis: {
-                    categories: []
-                },
-                yAxis: {
-                    title: {
-                        text: 'Period'
+                    events: {
+                        load: function () {
+
+                            // set up the updating of the chart each second
+                            var series = this.series[0];
+                            setInterval(function () {
+                                var x = (new Date()).getTime(), // current time
+                                    y = Math.round(Math.random() * 100);
+                                    series.addPoint([x, y], true, true);
+                            }, 1000);
+                        }
                     }
                 },
                 series: [{
-                    name: 'Task1',
-                    data: [10, 10, 10, 10, 10, 10]
-                }, {
-                    name: 'Task2',
-                    data: [20, 20, 20, 20, 20, 20]
-                }, {
-                    name: 'Task3',
-                    data: [30, 30, 30, 30, 30, 30]
-                }, {
-                    name: 'Task4',
-                    data: [40, 40, 40, 40, 40, 40]
+                    name: 'Random data',
+                    data: (function () {
+                        // generate an array of random data
+                        var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+
+                        for (i = -999; i <= 0; i += 1) {
+                            data.push([
+                                time + i * 1000,
+                                Math.round(Math.random() * 100)
+                            ]);
+                        }
+                    return data;
+                    }())
                 }]
             };
-        }, 3000);
     }
 }
 
