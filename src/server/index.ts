@@ -4,11 +4,13 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
+import * as socketIo from "socket.io";
 import { Init } from './db/redis';
 import rtsIo = require("./services/io");
 
 var _clientDir = '../client';
 var app = express();
+var server: any;
 
 export function init(port: number, mode: string) {
 
@@ -79,26 +81,21 @@ export function init(port: number, mode: string) {
     app.get('/*', renderIndex);
   }
 
-  /**
-   * Server with gzip compression.
-   */
-  return new Promise<http.Server>((resolve, reject) => {
-    let server = app.listen(port, () => {
-      var port = server.address().port;
-      console.log('App is listening on port:' + port);
-      resolve(server);
-    });
+  this.server = http.createServer(app);
 
-    var io = server;
-    rtsIo.io = io;
-    rtsIo.io.on('connection', (socket: any) => {
-      console.log('a user connected');
-      socket.on('disconnect', () => {
-        console.log('user disconnected');
-      });
-    });
+  rtsIo.io = socketIo(this.server);
+  this.server.listen(port);
 
-    console.log('waiting for users');
+  //add error handler
+  this.server.on("error", (error: any) => {
+    console.log("ERROR", error);
   });
+
+  //start listening on port
+  this.server.on("listening", () => {
+    console.log('==> Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);            
+  });
+
+  return server;
 };
 

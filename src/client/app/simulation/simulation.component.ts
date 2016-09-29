@@ -2,9 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {Ng2Highcharts, Ng2Highmaps, Ng2Highstocks} from 'ng2-highcharts';
 import { SimulationService } from '../shared/index';
-
-declare var io: any;
-
 /**
  * This class represents the lazy loaded SimulationComponent.
  */
@@ -28,6 +25,7 @@ export class SimulationComponent implements OnInit {
    */
     constructor(private http: Http, public simulationService: SimulationService) {
         this.socket = io();
+        this.receiveData();
      }
 
     start(){
@@ -37,7 +35,6 @@ export class SimulationComponent implements OnInit {
                     let status = Number(res["status"]);
                     if (status == 201) {
                         console.log("****Simulation started: receiving");
-                        this.receiveData();
                     } else{
                          console.log("Http Error: " + status);
                     }
@@ -59,7 +56,6 @@ export class SimulationComponent implements OnInit {
     }
 
     receiveData(){
-        console.log("***waiting on the client side");
         this.socket.on('Task data',function(msg: any){
             console.log(msg);
         });
@@ -187,7 +183,7 @@ export class SimulationComponent implements OnInit {
     chartStock = {};
 
     ngOnInit(): any {
-        this.socket = io();
+        //this.socket = io();
         this.init();
     }
 
