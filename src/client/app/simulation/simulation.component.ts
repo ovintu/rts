@@ -15,6 +15,8 @@ import { SimulationService } from '../shared/index';
 export class SimulationComponent implements OnInit {
 
     socket: any;
+    json :any;
+    time: number[] = [];
 
   /**
    * Creates an instance of the SimulationComponent with the injected
@@ -32,7 +34,7 @@ export class SimulationComponent implements OnInit {
         this.simulationService.start()
             .subscribe(
                 res => {
-                    let status = Number(res["status"]);
+                    let status = res["status"];
                     if (status == 201) {
                         console.log("****Simulation started: receiving");
                     } else{
@@ -46,7 +48,7 @@ export class SimulationComponent implements OnInit {
          this.simulationService.stop()
             .subscribe(
                 res => {
-                    let status = Number(res["status"]);
+                    let status = res["status"];
                     if (status == 201) {
                         console.log("****Simulation stoped");
                     } else{
@@ -57,7 +59,13 @@ export class SimulationComponent implements OnInit {
 
     receiveData(){
         this.socket.on('Task data',function(msg: any){
-            console.log(msg);
+            try {
+                this.json = JSON.parse(msg);
+                this.list.push(this.json['Started']);
+                console.log(this.json['Started']);
+            } catch (e) {
+                console.log(e);
+            }
         });
     }
 
@@ -65,37 +73,106 @@ export class SimulationComponent implements OnInit {
         title:{
             text: 'Rts'
         },
+        yAxis: [{
+            title: {
+                text: 'Period'
+            },
+            //height: 400,
+            lineWidth: 2
+        }],
+        xAxis: [{
+            title: {
+                text: 'Execution time'
+            },
+            lineWidth: 2
+        }],
         chart: {
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: false,
+                    }
+                }
+            },
+            showAxes:true,
+            marginRight: 200,
             events: {
                 load: function () {
+
+                    console.log(this.json['Started']);
 
                     // set up the updating of the chart each second
                     var series1 = this.series[0];
                     setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                            y = 200;
+                        var x = 0, 
+                            y = 0;
                         series1.addPoint([x, y], true, true);
+                    }, 1000);
+
+                    var series2 = this.series[1];
+                    setInterval(function () {
+                        var x = 0, 
+                            y = 0;
+                        series2.addPoint([x, y], true, true);
+                    }, 1000);
+
+                    var series3 = this.series[2];
+                    setInterval(function () {
+                        var x = 0, 
+                            y = 0;
+                        series3.addPoint([x, y], true, true);
+                    }, 1000);
+
+                    var series4 = this.series[3];
+                    setInterval(function () {
+                        var x = 0, 
+                            y = 0;
+                        series4.addPoint([x, y], true, true);
                     }, 1000);
                 }
             }
         },
         series: [{
             name: 'Task1',
+            marker: {
+                enabled: false
+            },
             data: (function () {
-                // generate an array of random data
                 var data :any[];
-                var time :any;
-                var i: any;
-                data = [],
-                time = (new Date()).getTime(),
-                i;
-
-                for (i = -999; i <= 0; i += 1) {
-                    data.push([
-                        time + i * 1000,
-                        200
-                    ]);
-                }
+                return data;
+            }())
+        },
+        {
+            name: 'Task2',
+            marker: {
+                enabled: false
+            },
+            data: (function () {
+                var data :any[];
+                return data;
+            }())
+        },
+        {
+            name: 'Task3',
+            marker: {
+                enabled: false
+            },
+            data: (function () {
+                var data :any[];
+                return data;
+            }())
+        },
+        {
+            name: 'Task4',
+            marker: {
+                enabled: false
+            },
+            data: (function () {
+                var data :any[];
                 return data;
             }())
         }]
@@ -110,35 +187,150 @@ export class SimulationComponent implements OnInit {
                 title:{
                     text: 'Rts'
                 },
+                yAxis: [{
+                    title: {
+                        text: 'Period'
+                    },
+                    //height: 400,
+                    lineWidth: 1
+                }],
+                xAxis: [{
+                    title: {
+                        text: 'Execution time'
+                    },
+                    lineWidth: 2
+                }],
                 chart: {
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: false,
+                            }
+                        }
+                    },
+                    showAxes:true,
+                    marginRight: 0,
                     events: {
                         load: function () {
-
+                            var count = 10;
                             // set up the updating of the chart each second
-                            var series = this.series[0];
+                            var series1 = this.series[0];
                             setInterval(function () {
-                                var x = (new Date()).getTime(), // current time
-                                    y = Math.round(Math.random() * 100);
-                                    series.addPoint([x, y], true, true);
+                                var x = count++, 
+                                    y = 100;
+                                    series1.addPoint([x, y], true, true);
+                            }, 1000);
+
+                            var series2 = this.series[1];
+                            setInterval(function () {
+                                var x = count++, 
+                                    y = 200;
+                                    series2.addPoint([x, y], true, true);
+                            }, 1000);
+
+                            var series3 = this.series[2];
+                            setInterval(function () {
+                                var x = count++, 
+                                    y = 300;
+                                    series3.addPoint([x, y], true, true);
+                            }, 1000);
+
+                            var series4 = this.series[3];
+                            setInterval(function () {
+                                var x = count++, 
+                                    y = 400;
+                                    series4.addPoint([x, y], true, true);
                             }, 1000);
                         }
                     }
                 },
                 series: [{
                     name: 'Task1',
+                    marker: {
+                        enabled: false
+                    },
                     data: (function () {
-                        // generate an array of random data
                         var data :any[];
                         var time :any;
                         var i: any;
                         data = [],
-                        time = (new Date()).getTime(),
                         i;
 
-                        for (i = -999; i <= 0; i += 1) {
+                        var count = 0;
+                        for (i = -10; i <= 0; i += 1) {
                             data.push([
-                                time + i * 1000,
-                                Math.round(Math.random() * 100)
+                                count++,
+                                100
+                            ]);
+                        }
+                    return data;
+                    }())
+                },
+                {
+                    name: 'Task2',
+                    marker: {
+                        enabled: false
+                    },
+                    data: (function () {
+                        var data :any[];
+                        var time :any;
+                        var i: any;
+                        data = [],
+                        i;
+
+                        var count = 0;
+                        for (i = -10; i <= 0; i += 1) {
+                            data.push([
+                                count++,
+                                200
+                            ]);
+                        }
+                    return data;
+                    }())
+                },
+                {
+                    name: 'Task3',
+                    marker: {
+                        enabled: false
+                    },
+                    data: (function () {
+                        var data :any[];
+                        var time :any;
+                        var i: any;
+                        data = [],
+                        i;
+
+                        var count = 0;
+                        for (i = -10; i <= 0; i += 1) {
+                            data.push([
+                                count++,
+                                300
+                            ]);
+                        }
+                    return data;
+                    }())
+                },
+                {
+                    name: 'Task4',
+                    marker: {
+                        enabled: false
+                    },
+                    data: (function () {
+                        var data :any[];
+                        var time :any;
+                        var i: any;
+                        data = [],
+                        i;
+
+                        var count = 0;
+                        for (i = -10; i <= 0; i += 1) {
+                            data.push([
+                                count++,
+                                400
                             ]);
                         }
                     return data;
