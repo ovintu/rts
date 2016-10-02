@@ -133,7 +133,7 @@ export class SimulationComponent implements OnInit {
                         tickPixelInterval: 150
                     }],
                 chart: {
-                    type: 'spline',
+                    type: 'line',
                     events: {
                         load: function () {
                             var count = 0;
@@ -149,10 +149,13 @@ export class SimulationComponent implements OnInit {
                                         var p = that.time1.pop();
                                         if (p != null){
                                             console.log('pushing 1');
-                                            var x =  new Date(p.x), 
-                                            y = p.y;
+                                            var x =  new Date(p.x + p.y), 
+                                            y = 25;
                                             console.log("????" + x)
                                             series1.addPoint([x, y], true, true);
+                                            series2.addPoint([x,0], true, true);
+                                            series3.addPoint([x,0], true, true);
+                                            series4.addPoint([x,0], true, true);
                                         }   
                                     }
                                 } 
@@ -162,10 +165,13 @@ export class SimulationComponent implements OnInit {
                                         var p = that.time2.pop();
                                         if (p != null){
                                             console.log('pushing 2');
-                                            var x =  new Date(p.x), 
-                                            y = p.y;
-                                            console.log("??????" + x)
+                                            var x =  new Date(p.x + p.y), 
+                                            y = 35;
+                                            console.log("??????" + x);
+                                            series1.addPoint([x, 0], true, true);
                                             series2.addPoint([x, y], true, true);
+                                            series3.addPoint([x, 0], true, true);
+                                            series4.addPoint([x, 0], true, true);
                                         }   
                                     }
                                 } 
@@ -175,10 +181,13 @@ export class SimulationComponent implements OnInit {
                                         var p = that.time3.pop();
                                         if (p != null){
                                             console.log('pushing 3');
-                                            var x =  new Date(p.x), 
-                                            y = p.y;
+                                            var x =  new Date(p.x + p.y), 
+                                            y = 45;
                                             console.log("?????" + x)
+                                            series1.addPoint([x, 0], true, true);
+                                            series2.addPoint([x, 0], true, true);
                                             series3.addPoint([x, y], true, true);
+                                            series4.addPoint([x, 0], true, true);
                                         }   
                                     }
                                 }
@@ -188,9 +197,12 @@ export class SimulationComponent implements OnInit {
                                         var p = that.time4.pop();
                                         if (p != null){
                                             console.log('pushing 4');
-                                            var x =  new Date(p.x), 
-                                            y = p.y;
+                                            var x =  new Date(p.x + p.y), 
+                                            y = 55;
                                             console.log("?????" + x)
+                                            series1.addPoint([x, 0], true, true);
+                                            series2.addPoint([x, 0], true, true);
+                                            series3.addPoint([x, 0], true, true);
                                             series4.addPoint([x, y], true, true);
                                         }   
                                     }
