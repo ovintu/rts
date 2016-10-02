@@ -110,6 +110,17 @@ export class SimulationComponent implements OnInit {
                 title:{
                     text: 'Rts'
                 },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    line: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
                 yAxis: [{
                     title: {
                         text: 'Period'
@@ -129,6 +140,7 @@ export class SimulationComponent implements OnInit {
                         tickPixelInterval: 150
                     }],
                 chart: {
+                    renderTo: 'container',
                     zoomType: 'x',
                     type: 'line',
                     events: {
@@ -198,6 +210,9 @@ export class SimulationComponent implements OnInit {
                 },
                 series: [{
                     name: 'Task1',
+                    marker: {
+                        enabled: false
+                    },
                     data: (function () {
                         // generate an array of random data
                         var data :any = [],
