@@ -75,25 +75,21 @@ export class SimulationComponent implements OnInit {
                 var name = this.json['Task'];
                 console.log(name);
                 if (name == 'Task 1'){
-                    console.log('*****Task 1');
                     var point = new Point();
                     point.x = new Date(this.json['Started']);
                     point.y = this.json['Ran'];
                     that.time1.push(point);
                 }else if (name == 'Task 2'){
-                    console.log('*****Task 2');
                     var point = new Point();
                     point.x = new Date(this.json['Started']);
                     point.y = this.json['Ran'];
                     that.time2.push(point);
                 }else if (name == 'Task 3'){
-                    console.log('*****Task 3');
                     var point = new Point();
                     point.x = new Date(this.json['Started']);
                     point.y = this.json['Ran'];
                     that.time3.push(point);
                 }else if (name == 'Task 4'){
-                    console.log('*****Task 4');
                     var point = new Point();
                     point.x = new Date(this.json['Started']);
                     point.y = this.json['Ran'];
@@ -133,6 +129,7 @@ export class SimulationComponent implements OnInit {
                         tickPixelInterval: 150
                     }],
                 chart: {
+                    zoomType: 'x',
                     type: 'line',
                     events: {
                         load: function () {
@@ -145,64 +142,52 @@ export class SimulationComponent implements OnInit {
                             setInterval(function () {
                                 if (that.time1 != null){
                                     while(that.time1.length > 0){
-                                        console.log('popping1');
                                         var p = that.time1.pop();
                                         if (p != null){
-                                            console.log('pushing 1');
                                             var x =  new Date(p.x + p.y), 
-                                            y = 25;
-                                            console.log("????" + x)
+                                            y = 10;
                                             series1.addPoint([x, y], true, true);
-                                            series2.addPoint([x,0], true, true);
-                                            series3.addPoint([x,0], true, true);
-                                            series4.addPoint([x,0], true, true);
+                                            series2.addPoint([x,10], true, true);
+                                            series3.addPoint([x,20], true, true);
+                                            series4.addPoint([x,30], true, true);
                                         }   
                                     }
                                 } 
                                 if (that.time2 != null){
                                     while(that.time2.length > 0){
-                                        console.log('popping2');
                                         var p = that.time2.pop();
                                         if (p != null){
-                                            console.log('pushing 2');
                                             var x =  new Date(p.x + p.y), 
-                                            y = 35;
-                                            console.log("??????" + x);
+                                            y = 20;
                                             series1.addPoint([x, 0], true, true);
                                             series2.addPoint([x, y], true, true);
-                                            series3.addPoint([x, 0], true, true);
-                                            series4.addPoint([x, 0], true, true);
+                                            series3.addPoint([x, 20], true, true);
+                                            series4.addPoint([x, 30], true, true);
                                         }   
                                     }
                                 } 
                                 if (that.time3 != null){
                                     while(that.time3.length > 0){
-                                        console.log('popping3');
                                         var p = that.time3.pop();
                                         if (p != null){
-                                            console.log('pushing 3');
                                             var x =  new Date(p.x + p.y), 
-                                            y = 45;
-                                            console.log("?????" + x)
+                                            y = 30;
                                             series1.addPoint([x, 0], true, true);
-                                            series2.addPoint([x, 0], true, true);
+                                            series2.addPoint([x, 10], true, true);
                                             series3.addPoint([x, y], true, true);
-                                            series4.addPoint([x, 0], true, true);
+                                            series4.addPoint([x, 30], true, true);
                                         }   
                                     }
                                 }
                                 if (that.time4 != null){
                                     while(that.time4.length > 0){
-                                        console.log('popping4');
                                         var p = that.time4.pop();
                                         if (p != null){
-                                            console.log('pushing 4');
                                             var x =  new Date(p.x + p.y), 
-                                            y = 55;
-                                            console.log("?????" + x)
+                                            y = 40;
                                             series1.addPoint([x, 0], true, true);
-                                            series2.addPoint([x, 0], true, true);
-                                            series3.addPoint([x, 0], true, true);
+                                            series2.addPoint([x, 10], true, true);
+                                            series3.addPoint([x, 20], true, true);
                                             series4.addPoint([x, y], true, true);
                                         }   
                                     }
@@ -220,8 +205,8 @@ export class SimulationComponent implements OnInit {
                         var count = 0;
                         for (i = -100; i <= 0; i += 1) {
                             data.push([
-                                count,
-                                20
+                                0,
+                                0
                             ]);
                         }
                         return data;
@@ -239,8 +224,8 @@ export class SimulationComponent implements OnInit {
                         var count = 0;
                         for (i = -100; i <= 0; i += 1) {
                             data.push([
-                                count,
-                                30
+                                0,
+                                10
                             ]);
                         }
                         return data;
@@ -258,8 +243,8 @@ export class SimulationComponent implements OnInit {
                         var count = 0;
                         for (i = -100; i <= 0; i += 1) {
                             data.push([
-                                count,
-                                40
+                                0,
+                                20
                             ]);
                         }
                         return data;
@@ -277,8 +262,8 @@ export class SimulationComponent implements OnInit {
                         var count = 0;
                         for (i = -100; i <= 0; i += 1) {
                             data.push([
-                                count,
-                                50
+                                0,
+                                30
                             ]);
                         }
                         return data;
