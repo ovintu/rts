@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { SimulationComponent } from './simulation.component';
 import { SimulationService } from '../shared/simulation-service/index';
+import { Point } from './point';
 
 import { Ng2HighchartsModule } from 'ng2-highcharts';
 

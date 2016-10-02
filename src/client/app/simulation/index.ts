@@ -3,3 +3,4 @@
  */
 export * from './simulation.component';
 export * from './simulation.routes';
+export * from './point';
